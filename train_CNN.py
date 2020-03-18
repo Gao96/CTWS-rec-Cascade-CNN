@@ -173,7 +173,7 @@ class Model:
         score = self.model.evaluate(dataset.test_images, dataset.test_labels, verbose=1)
         print("%s: %.2f%%" % (self.model.metrics_names[1], score[1] * 100))
 
-    def face_predict(self, image):
+    def predict(self, image):
         
         if K.image_dim_ordering() == 'th' and image.shape != (1, 3, IMAGE_SIZE, IMAGE_SIZE):
             image = resize_image(image)
