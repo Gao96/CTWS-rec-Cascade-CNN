@@ -10,7 +10,7 @@ cudnn5.1
 import os
 import numpy as np
 import cv2
-from face_train import Model
+from train_CNN import Model
 from NameOfSigns import SignNames
 import time
 from timeit import default_timer as timer
@@ -56,7 +56,7 @@ while True:
                                             flags=cv2.IMREAD_GRAYSCALE)
         for (x, y, w, h) in rect:
             image = frame[y - 5: y + h + 5, x - 5: x + w + 5]
-            proba, faceID = model.face_predict(image)
+            proba, faceID = model.predict(image)
             cv2.rectangle(frame, (x - 5, y - 5), (x + w + 5, y + h + 5), (0, 255, 0), 2)
             if(proba[faceID]>0.85):
                 numofsigs=numofsigs+1
