@@ -10,7 +10,7 @@ cudnn5.1
 import os
 import numpy as np
 import cv2
-from face_train import Model
+from train_CNN import Model
 from chineseNameOfSigns import SignNames
 import time
 
@@ -85,7 +85,7 @@ for xxx in range(0,42):
             h=rect[3]
             index+=1
             image = frame[y - 5: y + h + 5, x - 5: x + w + 5]
-            proba, faceID = model.face_predict(image)
+            proba, faceID = model.predict(image)
 
             if proba[faceID]>maxprob:
                 finalloc=rect
