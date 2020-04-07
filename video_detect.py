@@ -52,8 +52,7 @@ while True:
         start = time.time()
         #gray = cv2.GaussianBlur(frame, (3, 3), 0)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        rect = CTWSCascade.detectMultiScale(gray, scaleFactor=1.25, minNeighbors=1, minSize=(40, 40), maxSize=(80,80),
-                                            flags=cv2.IMREAD_GRAYSCALE)
+        rect = CTWSCascade.detectMultiScale(gray, scaleFactor=1.25, minNeighbors=1, minSize=(40, 40), maxSize=(80,80))
         for (x, y, w, h) in rect:
             image = frame[y - 5: y + h + 5, x - 5: x + w + 5]
             proba, ID = model.predict(image)
