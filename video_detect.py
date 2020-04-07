@@ -55,9 +55,9 @@ while True:
         rect = CTWSCascade.detectMultiScale(gray, scaleFactor=1.25, minNeighbors=1, minSize=(40, 40), maxSize=(80,80))
         for (x, y, w, h) in rect:
             image = frame[y - 5: y + h + 5, x - 5: x + w + 5]
-            proba, ID = model.predict(image)
+            prob, ID = model.predict(image)
             cv2.rectangle(frame, (x - 5, y - 5), (x + w + 5, y + h + 5), (0, 255, 0), 2)
-            if(proba[ID]>0.85):
+            if(prob[ID]>0.85):
                 numofsigs=numofsigs+1
                 signname = SignNames()
                 result = str(ID) + signname.getName(ID)
