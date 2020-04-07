@@ -20,8 +20,8 @@ import xlsxwriter
 
 #os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-faceCascade = cv2.CascadeClassifier("cascade.xml")
-faceCascade.load('D:/opencv/build/x64/vc15/bin/xml/cascade.xml')
+CTWSCascade = cv2.CascadeClassifier("cascade.xml")
+CTWSCascade.load('D:/opencv/build/x64/vc15/bin/xml/cascade.xml')
 model = Model()
 model.load_model(
     file_path='C:/Users/64186/PycharmProjects/trafficSignsRecognition/CNN_WarningSignRecognition/warningSigns.model8.h5')
@@ -52,16 +52,16 @@ while True:
         start = time.time()
         #gray = cv2.GaussianBlur(frame, (3, 3), 0)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        rect = faceCascade.detectMultiScale(gray, scaleFactor=1.25, minNeighbors=1, minSize=(40, 40), maxSize=(80,80),
+        rect = CTWSCascade.detectMultiScale(gray, scaleFactor=1.25, minNeighbors=1, minSize=(40, 40), maxSize=(80,80),
                                             flags=cv2.IMREAD_GRAYSCALE)
         for (x, y, w, h) in rect:
             image = frame[y - 5: y + h + 5, x - 5: x + w + 5]
-            proba, faceID = model.predict(image)
+            proba, ID = model.predict(image)
             cv2.rectangle(frame, (x - 5, y - 5), (x + w + 5, y + h + 5), (0, 255, 0), 2)
-            if(proba[faceID]>0.85):
+            if(proba[ID]>0.85):
                 numofsigs=numofsigs+1
                 signname = SignNames()
-                result = str(faceID) + signname.getName(faceID)
+                result = str(ID) + signname.getName(ID)
                 cv2.putText(frame, result,
                         (x + 10, y + 10),
                         cv2.FONT_HERSHEY_SIMPLEX,
