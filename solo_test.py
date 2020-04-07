@@ -15,14 +15,12 @@ from chineseNameOfSigns import SignNames
 import time
 
 # 加载分类器
-faceCascade = cv2.CascadeClassifier("cascade.xml")
-faceCascade.load('D:/opencv/build/x64/vc15/bin/xml/cascade.xml')
+CTWSCascade = cv2.CascadeClassifier("cascade.xml")
+CTWSCascade.load('./Cascade/cascade.xml')
 model = Model()
 model.load_model(
-    file_path='C:/Users/64186/PycharmProjects/trafficSignsRecognition/CNN_WarningSignRecognition/warningSigns.model8.h5')
+    file_path='./warningSigns.model8.h5')
 
-# dir='D:\\BaiduNetdiskDownload\\test\\negpostest\\'
-# dst='D:\\BaiduNetdiskDownload\\test\\res-cascade\\'
 numofsigs=0
 totalnum=0
 avgtime=0
@@ -64,8 +62,7 @@ for xxx in range(0,42):
         start = time.time()
         #gray = cv2.GaussianBlur(frame, (3, 3), 0)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        rects = faceCascade.detectMultiScale(gray, scaleFactor=1.15, minNeighbors=2, minSize=(2, 2),
-                                            flags=cv2.IMREAD_GRAYSCALE)
+        rects = CTWSCascade.detectMultiScale(gray, scaleFactor=1.15, minNeighbors=2, minSize=(2, 2))
         index = 0
         print(rects)
         if len(rects)==0:
@@ -85,12 +82,12 @@ for xxx in range(0,42):
             h=rect[3]
             index+=1
             image = frame[y - 5: y + h + 5, x - 5: x + w + 5]
-            proba, faceID = model.predict(image)
+            prob, ID = model.predict(image)
 
-            if proba[faceID]>maxprob:
+            if prob[ID]>maxprob:
                 finalloc=rect
-                finalclass=faceID
-                finalprob=proba[faceID]
+                finalclass=ID
+                finalprob=prob[ID]
 
         x = finalloc[0]
         y = finalloc[1]
