@@ -21,15 +21,15 @@ import xlsxwriter
 #os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 CTWSCascade = cv2.CascadeClassifier("cascade.xml")
-CTWSCascade.load('D:/opencv/build/x64/vc15/bin/xml/cascade.xml')
+CTWSCascade.load('./cascade/cascade.xml')
 model = Model()
 model.load_model(
-    file_path='C:/Users/64186/PycharmProjects/trafficSignsRecognition/CNN_WarningSignRecognition/warningSigns.model8.h5')
+    file_path='./warningSigns.model8.h5')
 
 numofsigs=0
 totalnum=0
 avgtime=0
-cap = cv2.VideoCapture("D:/testvideo/test11.mp4")
+cap = cv2.VideoCapture("./testVideo.mp4")
 index=0
 a=0
 totaltime=0
@@ -41,7 +41,7 @@ video_FourCC = int(cap.get(cv2.CAP_PROP_FOURCC))
 video_fps = cap.get(cv2.CAP_PROP_FPS)
 video_size = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
               int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-out = cv2.VideoWriter("D:/testvideo/2222.mp4", video_FourCC, video_fps, video_size)
+out = cv2.VideoWriter("./videoResult.mp4", video_FourCC, video_fps, video_size)
 
 while True:
         index+=1
